@@ -22,7 +22,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
       - name: Install dependencies
-        run: pnpm install --frozen-lock-file
+        run: pnpm install 
       - name: Build web app
         run: pnpm build
       - name: Deploy to Azure Static Web Apps
