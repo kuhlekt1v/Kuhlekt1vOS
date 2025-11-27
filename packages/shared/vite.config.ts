@@ -2,24 +2,8 @@ import { defineConfig } from "vite";
 import { resolve } from "path";
 import dts from "vite-plugin-dts";
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  build: {
-    lib: {
-      entry: resolve(__dirname, "src/main.ts"),
-      name: "shared",
-      fileName: () => "main.js", // <-- IMPORTANT: stable filename
-      formats: ["es"],
-    },
-    rollupOptions: {
-      // prevent ANY chunk splitting
-      output: {
-        manualChunks: undefined,
-        entryFileNames: "main.js",
-        assetFileNames: "assets/[name][extname]",
-      },
-    },
-    sourcemap: true,
-  },
   plugins: [
     dts({
       include: ["src"],
@@ -28,5 +12,26 @@ export default defineConfig({
       strictOutput: true,
     }),
   ],
+  build: {
+    lib: {
+      entry: resolve(__dirname, "src/main.ts"),
+      formats: ["es"],
+    },
+    rollupOptions: {
+      external: [
+        "vite",
+        "path",
+        /vite-plugin-/g,
+        /@vitejs\/plugin-/g,
+        "rollup",
+      ],
+      output: {
+        assetFileNames: "assets/[name][extname]",
+        chunkFileNames: "chunks/[name]-[hash].js",
+        entryFileNames: "[name].js",
+      },
+    },
+    sourcemap: true,
+  },
 });
 

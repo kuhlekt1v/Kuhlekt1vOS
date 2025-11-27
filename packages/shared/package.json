@@ -1,44 +1,40 @@
 {
-  "name": "@prozilla-os/shared",
-  "description": "A library of shared utility functions for ProzillaOS packages.",
-  "version": "1.2.0",
-  "homepage": "https://os.prozilla.dev",
-  "author": {
-    "name": "Prozilla",
-    "email": "business@prozilla.dev",
-    "url": "https://prozilla.dev/"
-  },
-  "funding": "https://ko-fi.com/prozilla",
-  "type": "module",
-
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-
-  "scripts": {
-    "build": "tsc --emitDeclarationOnly && vite build"
-  },
-
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/prozilla-os/ProzillaOS.git",
-    "directory": "packages/shared"
-  },
-
-  "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^20.14.5",
-    "@types/react": "^18.3.3",
-    "@vitejs/plugin-react-swc": "^3.7.0",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.8",
-    "vite-plugin-dts": "^3.9.1",
-    "vite-plugin-lib-inject-css": "^2.1.1"
-  },
-
-  "files": ["dist"],
-
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  }
+	"name": "@prozilla-os/shared",
+	"description": "A library of shared utility functions for ProzillaOS packages.",
+	"version": "1.2.0",
+	"homepage": "https://os.prozilla.dev",
+	"author": {
+		"name": "Prozilla",
+		"email": "business@prozilla.dev",
+		"url": "https://prozilla.dev/"
+	},
+	"funding": "https://ko-fi.com/prozilla",
+	"type": "module",
+	"main": "dist/main.js",
+	"types": "dist/main.d.ts",
+	"scripts": {
+		"build": "tsc && vite build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/prozilla-os/ProzillaOS.git",
+		"directory": "packages/shared"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^20.14.5",
+		"@types/react": "^18.3.3",
+		"@vitejs/plugin-react-swc": "^3.7.0",
+		"typescript": "^5.5.4",
+		"vite": "^5.4.8",
+		"vite-plugin-dts": "^3.9.1",
+		"vite-plugin-lib-inject-css": "^2.1.1"
+	},
+	"files": [
+		"dist"
+	],
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/",
+		"access": "public"
+	}
 }
