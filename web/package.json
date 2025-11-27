@@ -10,10 +10,8 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "prebuild": "pnpm run fetch",
     "build": "tsc --project tsconfig.build.json && vite build",
-    "preview": "vite preview --port 8080",
-    "fetch": "vite-node scripts/fetchRepository"
+    "preview": "vite preview --port 8080"
   },
   "repository": {
     "type": "git",

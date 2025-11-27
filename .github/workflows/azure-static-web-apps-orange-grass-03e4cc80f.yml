@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install 
       - name: Build web app
-        run: pnpm build
+        run: pnpm run web:build
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
