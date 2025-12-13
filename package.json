@@ -43,7 +43,8 @@
   },
   "dependencies": {
     "commander": "^12.1.0",
-    "pnpm": "^9.15.0"
+    "pnpm": "^9.15.0",
+    "prop-types": "^15.8.1"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.5",

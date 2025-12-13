@@ -13,6 +13,6 @@
 			"@prozilla-os/*": ["packages/apps/*/src/main"]
 		}
 	},
-	"include": ["src", "../core/src", "../apps/**/src", "vite.config.ts"],
+	"include": ["src", "../core/src", "../apps/**/src","../apps/gh-repo-sweeper/src/demo/demo-repos.json", "vite.config.ts"],
 	"exclude": ["node_modules"]
 }

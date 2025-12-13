@@ -1,97 +1,118 @@
-import { App, SettingsManager, SystemManager, VirtualFolder, VirtualRoot } from "@prozilla-os/core";
+import {
+  App,
+  SettingsManager,
+  SystemManager,
+  VirtualFolder,
+  VirtualRoot,
+} from "@prozilla-os/core";
 import { Stream } from "./stream";
-import { Dispatch, SetStateAction } from "react";
-import { HistoryEntry } from "../components/Terminal";
+import type { Dispatch, SetStateAction } from "react";
+import type { HistoryEntry } from "../components/Terminal";
 
 type Option = {
-	long: string,
-	short: string,
-	isInput: boolean
+  long: string;
+  short: string;
+  isInput: boolean;
 };
 
 export type CommandResponse = string | { blank: boolean } | void | Stream;
-export type ExecuteParams = {
-	promptOutput?: (text: string) => void,
-	pushHistory?: (entry: HistoryEntry) => void,
-	virtualRoot?: VirtualRoot,
-	currentDirectory: VirtualFolder,
-	setCurrentDirectory?: Dispatch<SetStateAction<VirtualFolder>>,
-	username?: string,
-	hostname?: string,
-	rawInputValue?: string,
-	options?: string[],
-	exit?: () => void,
-	inputs?: Record<string, string>,
-	timestamp: number,
-	settingsManager: SettingsManager,
-	systemManager: SystemManager,
-	app: App,
+
+export type ConfirmCallbackPayload = {
+  message: string;
+  onConfirm: (input: string) => Promise<void>;
 };
 
-type Execute = (args?: string[], params?: ExecuteParams) => CommandResponse | Promise<CommandResponse>;
+export type ExecuteParams = {
+  promptOutput?: (text: string) => void;
+  pushHistory?: (entry: HistoryEntry) => void;
+  virtualRoot?: VirtualRoot;
+  currentDirectory: VirtualFolder;
+  setCurrentDirectory?: Dispatch<SetStateAction<VirtualFolder>>;
+  username?: string;
+  hostname?: string;
+  rawInputValue?: string;
+  options?: string[];
+  exit?: () => void;
+  inputs?: Record<string, string>;
+  timestamp: number;
+  settingsManager: SettingsManager;
+  systemManager: SystemManager;
+  app: App;
+  confirmCallback?: (payload: ConfirmCallbackPayload) => void;
+};
+
+type Execute = (
+  args?: string[],
+  params?: ExecuteParams
+) => CommandResponse | Promise<CommandResponse>;
 
 type Manual = {
-	purpose?: string,
-	usage?: string,
-	description?: string,
-	options?: object
+  purpose?: string;
+  usage?: string;
+  description?: string;
+  options?: object;
+  prerequisites?: string;
 };
 
 export class Command {
-	name: string = "command";
-	options: Option[] = [];
-	manual: Manual | undefined;
-	requireArgs: boolean | undefined;
-	requireOptions: boolean | undefined;
+  name: string = "command";
+  options: Option[] = [];
+  manual: Manual | undefined;
+  requireArgs: boolean | undefined;
+  requireOptions: boolean | undefined;
 
-	execute: Execute = () => {};
+  execute: Execute = () => {};
 
-	setName(name: string): Command {
-		this.name = name;
+  setName(name: string): Command {
+    this.name = name;
 
-		if (!this.manual?.usage) {
-			if (!this.manual)
-				this.manual = {};
+    if (!this.manual?.usage) {
+      if (!this.manual) this.manual = {};
 
-			this.manual.usage = name;
-		}
+      this.manual.usage = name;
+    }
 
-		return this;
-	}
+    return this;
+  }
 
-	setExecute(execute: Execute): Command {
-		this.execute = execute;
-		return this;
-	}
+  setExecute(execute: Execute): Command {
+    this.execute = execute;
+    return this;
+  }
 
-	setRequireArgs(value: boolean): Command {
-		this.requireArgs = value;
-		return this;
-	}
+  setRequireArgs(value: boolean): Command {
+    this.requireArgs = value;
+    return this;
+  }
 
-	setRequireOptions(value: boolean): Command {
-		this.requireOptions = value;
-		return this;
-	}
+  setRequireOptions(value: boolean): Command {
+    this.requireOptions = value;
+    return this;
+  }
 
-	setManual({ purpose, usage, description, options }: Manual): Command {
-		this.manual = { purpose, usage, description, options };
-		return this;
-	}
+  setManual({
+    purpose,
+    usage,
+    description,
+    options,
+    prerequisites,
+  }: Manual): Command {
+    this.manual = { purpose, usage, description, options, prerequisites };
+    return this;
+  }
 
-	addOption({ short, long, isInput }: Option): Command {
-		this.options.push({ short, long, isInput });
-		return this;
-	}
+  addOption({ short, long, isInput }: Option): Command {
+    this.options.push({ short, long, isInput });
+    return this;
+  }
 
-	getOption(key: string): Option | null {
-		let matchingOption: Option | null = null;
+  getOption(key: string): Option | null {
+    let matchingOption: Option | null = null;
 
-		this.options.forEach((option) => {
-			if (option.short === key || option.long === key)
-				matchingOption = option;
-		});
+    this.options.forEach((option) => {
+      if (option.short === key || option.long === key) matchingOption = option;
+    });
 
-		return matchingOption;
-	}
+    return matchingOption;
+  }
 }

@@ -1,55 +1,77 @@
-import { ChangeEvent, CSSProperties, KeyboardEvent, MutableRefObject, useState } from "react";
+import { useState } from "react";
 import styles from "./Terminal.module.css";
 import { Ansi } from "./Ansi";
 
+import type {
+  ChangeEvent,
+  CSSProperties,
+  MutableRefObject,
+  KeyboardEvent as ReactKeyboardEvent,
+} from "react";
 
 interface InputLineProps {
-	value: string;
-	prefix: string;
-	onChange: (event: ChangeEvent) => void;
-	onKeyUp?: (event: KeyboardEvent) => void;
-	onKeyDown?: (event: KeyboardEvent) => void;
-	inputRef: MutableRefObject<HTMLInputElement>;
+  value: string;
+  prefix?: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onKeyUp?: (event: ReactKeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: ReactKeyboardEvent<HTMLInputElement>) => void;
+  inputRef: MutableRefObject<HTMLInputElement>;
 }
 
-export function InputLine({ value, prefix, onChange, onKeyUp, onKeyDown, inputRef }: InputLineProps) {
-	const [cursorPosition, setCursorPosition] = useState(0);
+export function InputLine({
+  value,
+  onChange,
+  onKeyUp,
+  onKeyDown,
+  inputRef,
+  prefix = "> ",
+}: InputLineProps) {
+  const [cursorPosition, setCursorPosition] = useState(0);
 
-	const checkCursorPosition = () => {
-		const selectionStart = inputRef.current?.selectionStart;
-		if (selectionStart != null)	setCursorPosition(selectionStart);
-	};
+  const checkCursorPosition = () => {
+    const selectionStart = inputRef.current?.selectionStart;
+    if (selectionStart != null) setCursorPosition(selectionStart);
+  };
 
-	return (
-		<span className={styles.Input}>
-			{prefix && <Ansi className={styles.Prefix} useClasses>{prefix}</Ansi>}
-			<span className={styles["Input-container"]} style={{ "--cursor-offset": cursorPosition } as CSSProperties}>
-				<span aria-hidden="true">{value}</span>
-				<input
-					id="input"
-					value={value}
-					aria-label="Command input"
-					onChange={(event) => {
-						onChange(event);
-						checkCursorPosition();
-					}}
-					ref={inputRef}
-					onKeyUp={(event) => { onKeyUp?.(event); }}
-					onKeyDown={(event) => {
-						onKeyDown?.(event);
-						checkCursorPosition();
-					}}
-					onClick={checkCursorPosition}
-					onTouchEnd={checkCursorPosition}
-					onSelect={checkCursorPosition}
-					onCut={checkCursorPosition}
-					onCopy={checkCursorPosition}
-					onPaste={checkCursorPosition}
-					spellCheck={false}
-					autoComplete="off"
-					autoFocus
-				/>
-			</span>
-		</span>
-	);
+  return (
+    <span className={styles.Input}>
+      {prefix && (
+        <Ansi className={styles.Prefix} useClasses>
+          {prefix}
+        </Ansi>
+      )}
+      <span
+        className={styles["Input-container"]}
+        style={{ "--cursor-offset": cursorPosition } as CSSProperties}
+      >
+        <span aria-hidden="true">{value}</span>
+        <input
+          id="input"
+          value={value}
+          aria-label="Command input"
+          onChange={(event) => {
+            onChange(event);
+            checkCursorPosition();
+          }}
+          ref={inputRef}
+          onKeyUp={(event) => {
+            onKeyUp?.(event);
+          }}
+          onKeyDown={(event) => {
+            onKeyDown?.(event);
+            checkCursorPosition();
+          }}
+          onClick={checkCursorPosition}
+          onTouchEnd={checkCursorPosition}
+          onSelect={checkCursorPosition}
+          onCut={checkCursorPosition}
+          onCopy={checkCursorPosition}
+          onPaste={checkCursorPosition}
+          spellCheck={false}
+          autoComplete="off"
+          autoFocus
+        />
+      </span>
+    </span>
+  );
 }

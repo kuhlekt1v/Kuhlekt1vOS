@@ -104,6 +104,7 @@ export default defineConfig(({ command }) => {
     },
     optimizeDeps: {
       exclude: devMode ? Object.keys(aliases) : [],
+      include: ['prop-types'],
     },
   } as UserConfig;
 });

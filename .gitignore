@@ -11,3 +11,4 @@ yarn-error.log*
 demo/public/config/tree.json
 vite.config.ts.timestamp-*.mjs
 .temp
+.DS_STORE
