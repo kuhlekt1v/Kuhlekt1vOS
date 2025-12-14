@@ -1,7 +1,7 @@
 {
-    "name": "ProzillaOS",
-    "short_name": "ProzillaOS",
-	"description": "ProzillaOS is an open-source web-based operating system inspired by Ubuntu Linux and Windows made with React.js by Prozilla.",
+    "name": "Kuhlekt1vOS",
+    "short_name": "Kuhlekt1vOS",
+	"description": "Kuhlekt1vOS is a custom web OS for experimenting with real tools, microservices, and cloud-backed workflows. Built on top of ProzillaOS.",
     "start_url": ".",
     "scope": ".",
     "icons": [
@@ -22,13 +22,13 @@
             "sizes": "512x320",
             "type": "image/png",
             "form_factor": "wide",
-            "label": "ProzillaOS"
+            "label": "Kuhlekt1vOS"
         },
         {
             "src": "/assets/screenshots/pwa/desktop-350x335.png",
             "sizes": "350x335",
             "type": "image/png",
-            "label": "ProzillaOS"
+            "label": "Kuhlekt1vOS"
         }
     ],
     "theme_color": "#0D1114",
