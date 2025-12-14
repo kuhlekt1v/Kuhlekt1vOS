@@ -18,7 +18,7 @@ flowchart LR
 		A[Main Web App]
 	end
 
-	A --> B[Prozilla OS<br/>Azure App Service]
+	A --> B[kuhlekt1vOS<br/>Azure App Service]
 
 	subgraph Backend["Microservices Layer"]
 		B --> C1[Azure Function<br/>Utility 1]
